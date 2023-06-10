@@ -11,11 +11,11 @@ public class enemyScript : MonoBehaviour
     private Rigidbody2D rb;
     public LayerMask groundLayer;
     public Transform groundCheck;
-    public static bool isFacingRight = true;
+    //public static bool isFacingRight = true;
 
-    private void Awake()
+    private void Start()
     {
-        rb = this.GetComponent<Rigidbody2D>();
+       rb = this.gameObject.GetComponent<Rigidbody2D>();
     }
 
     private void Update()
@@ -48,20 +48,15 @@ public class enemyScript : MonoBehaviour
             StartCoroutine(Hit());
             //add coroutine to set isHit to false
         }
-        else if (isFacingRight && !isHit)
+        else
         {
-            //rb.AddForce(transform.right * enemyMoveSpeed);
-            rb.velocity = new Vector2(1 * enemyMoveSpeed, rb.velocity.y);
-        }
-        else if(!isFacingRight && !isHit)
-        {
-            //rb.AddForce(transform.right * -enemyMoveSpeed);
-            rb.velocity = new Vector2(-1 * enemyMoveSpeed, rb.velocity.y);
+            //bigger the size faster the move speed but best solution
+            rb.velocity = new Vector2(this.transform.localScale.x * enemyMoveSpeed, rb.velocity.y);
         }
 
-        if(IsGrounded() == false)
+        if(this.IsGrounded() == false)
         {
-            isFacingRight = !isFacingRight;
+            //isFacingRight = !isFacingRight;
             Vector3 localScale = transform.localScale;
             localScale.x *= -1f;
             transform.localScale = localScale;
