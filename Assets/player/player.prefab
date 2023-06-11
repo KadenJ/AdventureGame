@@ -452,6 +452,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   attackBox: {fileID: 2350056280060297140}
   attackCooldown: 0
+  fireball: {fileID: 3426933533996768039, guid: b06cbcf700a5d044eb3c8352f3bc37f7, type: 3}
 --- !u!95 &2350056279971724265
 Animator:
   serializedVersion: 5

@@ -6,6 +6,7 @@ public class enemyScript : MonoBehaviour
 {
     public int health = 3;
     public bool isHit = false;
+    public bool isShot = false;
 
     [SerializeField]private float enemyMoveSpeed = 10;
     private Rigidbody2D rb;
@@ -28,7 +29,8 @@ public class enemyScript : MonoBehaviour
 
     private void FixedUpdate()
     {
-        if(isHit == true)
+
+        if (isHit == true)
         {
             rb.velocity = Vector2.zero;
             bool isDone = false;
@@ -41,6 +43,26 @@ public class enemyScript : MonoBehaviour
                 if (playerMovement.isFacingRight == false)
                 {
                     rb.AddForce(transform.right * -hit.knockback, ForceMode2D.Impulse);
+                }
+                isDone = true;
+            }
+
+            StartCoroutine(Hit());
+            //add coroutine to set isHit to false
+        }
+        else if (isShot == true)
+        {
+            rb.velocity = Vector2.zero;
+            bool isDone = false;
+            if (!isDone)
+            {
+                if (playerMovement.isFacingRight == true)
+                {
+                    rb.AddForce(transform.right * projectileCollision.knockback, ForceMode2D.Impulse);
+                }
+                if (playerMovement.isFacingRight == false)
+                {
+                    rb.AddForce(transform.right * -projectileCollision.knockback, ForceMode2D.Impulse);
                 }
                 isDone = true;
             }
@@ -67,6 +89,7 @@ public class enemyScript : MonoBehaviour
     IEnumerator Hit()
     {
         yield return new WaitForSeconds(.5f);
+        isShot = false;
         isHit = false;
     }
 

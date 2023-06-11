@@ -20,6 +20,9 @@ public class playerActions : MonoBehaviour
     #endregion
 
     #region projectile vars
+
+    public GameObject fireball;
+    public float projectileCooldown;
     #endregion
 
     private void Start()
@@ -62,10 +65,20 @@ public class playerActions : MonoBehaviour
     {
         if (ctx.performed && animator.GetBool("Attacking") == false)
         {
-            animator.SetBool("isFireball", true);
-            Debug.Log("fireball");
-            //disable fireball bool
+            if(projectileCooldown <= 0)
+            {
+                animator.SetBool("isFireball", true);
+                Debug.Log("fireball");
+                Vector2 firebalPos = new Vector2(attackBox.transform.position.x, attackBox.transform.position.y + .3f);
+                Instantiate(fireball, firebalPos, Quaternion.identity);
+                projectileCooldown = 2f;
+            }
+
         }
+    }
+    public void projectileEnd()
+    {
+        animator.SetBool("isFireball", false);
     }
 
     private void Update()
@@ -73,6 +86,10 @@ public class playerActions : MonoBehaviour
         if(attackCooldown > 0)
         {
             attackCooldown -= 1 * Time.deltaTime;
+        }
+        if (projectileCooldown > 0)
+        {
+            projectileCooldown -= 1 * Time.deltaTime;
         }
     }
 

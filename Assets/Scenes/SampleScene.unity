@@ -552,7 +552,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   health: 100
   isHit: 0
-  enemyMoveSpeed: 5
+  isShot: 0
+  enemyMoveSpeed: 0
   groundLayer:
     serializedVersion: 2
     m_Bits: 8
@@ -622,6 +623,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   health: 100
   isHit: 0
+  isShot: 0
   enemyMoveSpeed: 5
   groundLayer:
     serializedVersion: 2
