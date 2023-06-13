@@ -13,6 +13,8 @@ public class playerMovement : MonoBehaviour
     private float horizontal;
     public float speed = 8;
     private float jump = 4;
+    private int jumpCount;
+    public int maxJumps = 2;
     public static bool isFacingRight = true;
     #endregion
 
@@ -32,6 +34,11 @@ public class playerMovement : MonoBehaviour
         {
             Flip();
         }
+
+        if (IsGrounded())
+        {
+            jumpCount = maxJumps;
+        }
     }
 
     public void Move(InputAction.CallbackContext ctx)
@@ -41,9 +48,11 @@ public class playerMovement : MonoBehaviour
 
     public void Jump(InputAction.CallbackContext ctx)
     {
-        if(ctx.performed && IsGrounded())
+        if(ctx.performed && IsGrounded() || ctx.performed && jumpCount > 1)
         {
             rb.velocity = new Vector2(rb.velocity.x, jump);
+            jumpCount -= 1;
+
         }
         if(ctx.canceled && rb.velocity.y > 0f)
         {

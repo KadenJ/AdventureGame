@@ -982,6 +982,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: player
       objectReference: {fileID: 0}
+    - target: {fileID: 2350056280050977229, guid: 451a5c2ea9cda05469508106bb853d11, type: 3}
+      propertyPath: maxJumps
+      value: 2
+      objectReference: {fileID: 0}
     - target: {fileID: 2350056280050977230, guid: 451a5c2ea9cda05469508106bb853d11, type: 3}
       propertyPath: m_RootOrder
       value: 3
