@@ -33,9 +33,18 @@
                     "initialStateCheck": false
                 },
                 {
-                    "name": "projectile",
+                    "name": "Projectile",
                     "type": "Button",
                     "id": "93cfe395-aea6-4241-bbde-a0961de9b236",
+                    "expectedControlType": "Button",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": false
+                },
+                {
+                    "name": "Shrink",
+                    "type": "Button",
+                    "id": "bea7a1b3-302c-4502-9c1e-2ba5b3ddabcf",
                     "expectedControlType": "Button",
                     "processors": "",
                     "interactions": "",
@@ -259,7 +268,7 @@
                     "interactions": "",
                     "processors": "",
                     "groups": "",
-                    "action": "projectile",
+                    "action": "Projectile",
                     "isComposite": false,
                     "isPartOfComposite": false
                 },
@@ -270,7 +279,18 @@
                     "interactions": "",
                     "processors": "",
                     "groups": "",
-                    "action": "projectile",
+                    "action": "Projectile",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "7d5459b9-8a8d-457f-b3ea-d45ea9773c5a",
+                    "path": "<Keyboard>/c",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "Shrink",
                     "isComposite": false,
                     "isPartOfComposite": false
                 }

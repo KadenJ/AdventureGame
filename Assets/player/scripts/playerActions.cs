@@ -43,7 +43,7 @@ public class playerActions : MonoBehaviour
                 animator.SetBool("Attacking", true);
                 this.GetComponent<playerMovement>().speed = 0;
                 StartCoroutine("attack");
-                dmg = 1;
+                dmg = 2;
             }
             
         }
@@ -60,7 +60,7 @@ public class playerActions : MonoBehaviour
         attackCooldown = .5f;
     }
     #endregion
-
+    #region shoot
     public void Projectile(InputAction.CallbackContext ctx)
     {
         if (ctx.performed && animator.GetBool("Attacking") == false)
@@ -72,6 +72,7 @@ public class playerActions : MonoBehaviour
                 Vector2 firebalPos = new Vector2(attackBox.transform.position.x, attackBox.transform.position.y + .3f);
                 Instantiate(fireball, firebalPos, Quaternion.identity);
                 projectileCooldown = 2f;
+                dmg = 3;
             }
 
         }
@@ -80,6 +81,7 @@ public class playerActions : MonoBehaviour
     {
         animator.SetBool("isFireball", false);
     }
+    #endregion
 
     private void Update()
     {

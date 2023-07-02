@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class enemyScript : MonoBehaviour
 {
-    public int health = 3;
+    public int health = 5;
     public bool isHit = false;
     public bool isShot = false;
 
@@ -12,6 +12,8 @@ public class enemyScript : MonoBehaviour
     private Rigidbody2D rb;
     public LayerMask groundLayer;
     public Transform groundCheck;
+    public Transform playerCheck;
+    public LayerMask playerLayer;
     //public static bool isFacingRight = true;
 
     private void Start()
@@ -21,7 +23,9 @@ public class enemyScript : MonoBehaviour
 
     private void Update()
     {
-        if(health <= 0)
+        
+
+        if (health <= 0)
         {
             Destroy(this.gameObject);
         }
@@ -29,7 +33,7 @@ public class enemyScript : MonoBehaviour
 
     private void FixedUpdate()
     {
-
+        //staff knockback
         if (isHit == true)
         {
             rb.velocity = Vector2.zero;
@@ -50,17 +54,22 @@ public class enemyScript : MonoBehaviour
             StartCoroutine(Hit());
             //add coroutine to set isHit to false
         }
+        //fireball knockback
         else if (isShot == true)
         {
             rb.velocity = Vector2.zero;
             bool isDone = false;
             if (!isDone)
             {
-                if (playerMovement.isFacingRight == true)
+                //if velocity < 0, knockback push left
+                if (projectileCollision.PVelocity > 0)
                 {
                     rb.AddForce(transform.right * projectileCollision.knockback, ForceMode2D.Impulse);
+                    
                 }
-                if (playerMovement.isFacingRight == false)
+                //if velocity > 0, knockback push right
+                //if(fireball rb.velocity > 0 
+                if (projectileCollision.PVelocity < 0)
                 {
                     rb.AddForce(transform.right * -projectileCollision.knockback, ForceMode2D.Impulse);
                 }
@@ -72,10 +81,12 @@ public class enemyScript : MonoBehaviour
         }
         else
         {
+            //left right movement
             //bigger the size faster the move speed but best solution
             rb.velocity = new Vector2(this.transform.localScale.x * enemyMoveSpeed, rb.velocity.y);
         }
 
+        //when to turn
         if(this.IsGrounded() == false)
         {
             //isFacingRight = !isFacingRight;
@@ -83,7 +94,26 @@ public class enemyScript : MonoBehaviour
             localScale.x *= -1f;
             transform.localScale = localScale;
         }
+
+        if(this.DetectPlayer() == true)
+        {
+            //attack(15);
+        }
+        else
+        {
+            //patrol(5);
+        }
         
+    }
+
+    private void attack(float attackSpeed)
+    {
+        enemyMoveSpeed = attackSpeed;
+    }
+
+    private void patrol(float walkSpeed)
+    {
+        enemyMoveSpeed = walkSpeed;
     }
 
     IEnumerator Hit()
@@ -96,5 +126,10 @@ public class enemyScript : MonoBehaviour
     private bool IsGrounded()
     {
         return Physics2D.OverlapCircle(groundCheck.position, .2f, groundLayer);
+    }
+
+    private bool DetectPlayer()
+    {
+        return Physics2D.OverlapBox(playerCheck.position, new Vector2(1,1),0,playerLayer);
     }
 }

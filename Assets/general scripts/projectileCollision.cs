@@ -11,6 +11,7 @@ public class projectileCollision : MonoBehaviour
     private GameObject enemy;
     private Rigidbody2D enemyRb;
     public static float knockback = 1;
+    public static float PVelocity;
 
     private void Start()
     {
@@ -20,6 +21,7 @@ public class projectileCollision : MonoBehaviour
     {
         if (isDone == false)
         {
+            //direction to shoot projectile
             if (playerMovement.isFacingRight)
             {
                 rb.velocity = new Vector2(rb.transform.right.x * projectileSpeed * Time.fixedDeltaTime, 0);
@@ -29,9 +31,12 @@ public class projectileCollision : MonoBehaviour
                 rb.velocity = new Vector2(rb.transform.right.x * -projectileSpeed * Time.fixedDeltaTime, 0);
             }
             isDone = true;
+            PVelocity = rb.velocity.x;
         }
 
         Destroy(this.gameObject, 5f);
+
+        //Debug.Log(this.GetComponent<Rigidbody2D>().velocity.x);
     }
 
     private void OnTriggerEnter2D(Collider2D collision)
