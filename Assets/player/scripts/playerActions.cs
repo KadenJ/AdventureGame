@@ -5,6 +5,7 @@ using UnityEngine.InputSystem;
 
 public class playerActions : MonoBehaviour
 {
+    //add buff and debuff item depending on class
     #region animations
 
     Animator animator;

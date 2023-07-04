@@ -16,9 +16,14 @@ public class enemyScript : MonoBehaviour
     public LayerMask playerLayer;
     //public static bool isFacingRight = true;
 
+    Animator animator;
+    int isDeadHash;
+
     private void Start()
     {
        rb = this.gameObject.GetComponent<Rigidbody2D>();
+       animator = GetComponent<Animator>();
+       isDeadHash = Animator.StringToHash("isDead");
     }
 
     private void Update()
@@ -27,8 +32,15 @@ public class enemyScript : MonoBehaviour
 
         if (health <= 0)
         {
-            Destroy(this.gameObject);
+            //Destroy(this.gameObject);
+            bool isDead = animator.GetBool(isDeadHash);
+            animator.SetBool("dead", true);
         }
+    }
+
+    public void die()
+    {
+        Destroy(this.gameObject);
     }
 
     private void FixedUpdate()
