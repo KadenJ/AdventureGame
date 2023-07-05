@@ -46,7 +46,7 @@ public class projectileCollision : MonoBehaviour
 
             enemy = collision.gameObject;
             enemyRb = enemy.GetComponent<Rigidbody2D>();
-            enemy.GetComponent<enemyScript>().isShot = true;
+            enemy.GetComponent<enemyScript>().isShot = true; //gets error?
             Debug.Log("hit enemy");
             enemy.GetComponent<enemyScript>().health -= playerActions.dmg;
 

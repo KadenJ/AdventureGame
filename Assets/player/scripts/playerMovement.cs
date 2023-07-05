@@ -6,6 +6,8 @@ using UnityEngine.InputSystem;
 public class playerMovement : MonoBehaviour
 {
     private Rigidbody2D rb;
+    public static int health;
+    public static bool playerHit = false;
     #region movement var
     public LayerMask groundLayer;
     public Transform groundCheck;
@@ -23,6 +25,7 @@ public class playerMovement : MonoBehaviour
     {
         rb = GetComponent<Rigidbody2D>();
         body = GameObject.Find("body");
+        health = 5;
     }
 
     private void FixedUpdate()
@@ -93,5 +96,21 @@ public class playerMovement : MonoBehaviour
     private bool IsGrounded()
     {
         return Physics2D.OverlapCircle(groundCheck.position, .2f, groundLayer);
+    }
+
+    private void Update()
+    {
+        if (playerHit == true)
+        {
+            this.gameObject.layer = 7;
+            StartCoroutine(Invincibility());
+        }
+    }
+
+    IEnumerator Invincibility()
+    {
+        yield return new WaitForSeconds(2);
+        playerHit = false;
+        this.gameObject.layer = 0;
     }
 }

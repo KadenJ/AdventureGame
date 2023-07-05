@@ -4,6 +4,19 @@ using UnityEngine;
 
 public class enemyScript : MonoBehaviour
 {
+    /*every enemy needs
+     * death anim
+     *      -dead bool
+     *      -animation event
+     * attack anim
+     *      -attack bool
+     * rigid body
+     * ground layer chack
+     * player layer check
+     * 
+     * add different health amount somehow
+    */
+
     public int health = 5;
     public bool isHit = false;
     public bool isShot = false;
@@ -18,12 +31,14 @@ public class enemyScript : MonoBehaviour
 
     Animator animator;
     int isDeadHash;
+    int attackHash;
 
     private void Start()
     {
        rb = this.gameObject.GetComponent<Rigidbody2D>();
        animator = GetComponent<Animator>();
        isDeadHash = Animator.StringToHash("isDead");
+       attackHash = Animator.StringToHash("isAttacking");  
     }
 
     private void Update()
@@ -80,7 +95,6 @@ public class enemyScript : MonoBehaviour
                     
                 }
                 //if velocity > 0, knockback push right
-                //if(fireball rb.velocity > 0 
                 if (projectileCollision.PVelocity < 0)
                 {
                     rb.AddForce(transform.right * -projectileCollision.knockback, ForceMode2D.Impulse);
@@ -110,10 +124,13 @@ public class enemyScript : MonoBehaviour
         if(this.DetectPlayer() == true)
         {
             //attack(15);
+            //attack bool = true
+            animator.SetBool("attack", true);
         }
         else
         {
             //patrol(5);
+            animator.SetBool("attack", false);
         }
         
     }
@@ -142,6 +159,6 @@ public class enemyScript : MonoBehaviour
 
     private bool DetectPlayer()
     {
-        return Physics2D.OverlapBox(playerCheck.position, new Vector2(1,1),0,playerLayer);
+        return Physics2D.OverlapBox(playerCheck.position, new Vector2(4,1),0,playerLayer);
     }
 }
